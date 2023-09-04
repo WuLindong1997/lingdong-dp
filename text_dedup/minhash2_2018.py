@@ -27,7 +27,7 @@ from scipy.integrate import quad as integrate
 from tqdm import tqdm
 import sys
     ##修改下面的参数
-sys.path.append("/mnt/lingxin/Pretrain-data/wulindong")
+sys.path.append("/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp")
 from datasketch import MinHash
 from text_dedup import logger
 from text_dedup.utils import UnionFind
@@ -258,17 +258,17 @@ if __name__ == "__main__":  # pragma: no cover
 
     ##修改下面的参数
     ##数据集目录
-    args.path = '/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_end_special_token'
+    args.path = '/mnt/vepfs/lingxin/Pretrain-data/wulindong/juben_crawl/dudmp_data'
     ##内容的key
     args.column = 'text'
     ##输出目录
-    args.output = '/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_dudmp_special_token'
+    args.output = '/mnt/vepfs/lingxin/Pretrain-data/wulindong/juben_crawl/dudmp_data_exist'
     # args.output = '/mnt/vepfs/lingxin/Pretrain-data/leileqi_test/xiaohongshu_dedup_test/test_deduped'
     ##判定为重复文档的保存目录
-    args.output_duped = '/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_dudmp_abandon_special_token'
+    args.output_duped = '/mnt/vepfs/lingxin/Pretrain-data/wulindong/juben_crawl/dudmp_data_abandon'
     # args.output_duped = '/mnt/vepfs/lingxin/Pretrain-data/leileqi_test/xiaohongshu_dedup_test/test_deduped_abandoned'
     ##缓存目录
-    args.cache_dir = '/mnt/vepfs/lingxin/Pretrain-data/wulindong/weixin_cache2'
+    args.cache_dir = '/mnt/vepfs/lingxin/Pretrain-data/wulindong/cache'
     # args.cache_dir = '/mnt/vepfs/lingxin/Pretrain-data/leileqi_test/xiaohongshu_dedup_test/test_cache'
     ##进程数
     args.num_proc = 30
@@ -278,7 +278,7 @@ if __name__ == "__main__":  # pragma: no cover
     data_files = []
     for root,dir,filenames in os.walk(args.path):
         for filename in filenames:
-            if filename.endswith('.json') and 'weixin_page.2018' in  filename:
+            if filename.endswith('.jsonl'):
                 data_files.append(os.path.join(root,filename))
     # data_files = ['/mnt/vepfs/lingxin/Pretrain-data/leileqi_test/test_dedup.jsonl']
     batch_size = 3000
@@ -291,10 +291,10 @@ if __name__ == "__main__":  # pragma: no cover
         # ...
         start_index += batch_size
         
-        save_name = f'weixin_page.2018_special_token_{start_index}.jsonl'
+        save_name = f'相声剧本_dedup.jsonl'
 
         args.split = 'train'
-        args.num_perm = 30
+        args.num_perm = 10
         args.n_gram = 5
         # args.B = 10
         # args.R = 1
