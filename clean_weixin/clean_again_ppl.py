@@ -304,22 +304,7 @@ class ModifyingDocuments:
         return document
        
 
-def get_args():
-    args_parser = argparse.ArgumentParser(description='parse_html')
 
-    # dictionary or file
-    args_parser.add_argument('--dataset_path', type=str,default='/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_dudmp_special_token_again_test500')
-    # args_parser.add_argument('--dataset_path', type=str,default='/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_clean_special_token_other/weixin_page.2018-07-14')
-    args_parser.add_argument('--save_path', type=str,default='/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_dudmp_special_token_again')
-    args_parser.add_argument('--path_kenlm_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/code/dataprocessing-bigscience/zh.arpa.bin')
-    args_parser.add_argument('--path_sentencepiece_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/code/dataprocessing-bigscience/zh.sp.model')
-    args_parser.add_argument('--perplexity_max_cutoff', type=int,default=3000)
-    args_parser.add_argument('--pool_num', type=int,default = 70)
-
-    # parse
-    args = args_parser.parse_args()
-
-    return args
 
 
 def compute_perplexity_score(document, sentencepiece_model, kenlm_model):
@@ -372,12 +357,30 @@ def process(data,kenlm_model,sentencepiece_model):
         if cond:
             # end_time = time()
             # print(f'time:{end_time-start_time}')
-            return json.dumps({"text":data},ensure_ascii=False)
+            return json.dumps({"text":data,"remove":False},ensure_ascii=False)
+        else:
+            return json.dumps({"text":data,"remove":True},ensure_ascii=False)
     # end_time = time()
     # print(f'time:{end_time-start_time}')
+    
     return 
 
+def get_args():
+    args_parser = argparse.ArgumentParser(description='parse_html')
 
+    # dictionary or file
+    args_parser.add_argument('--dataset_path', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/company_task/zhipu_api_task/novel_split_data')
+    # args_parser.add_argument('--dataset_path', type=str,default='/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_clean_special_token_other/weixin_page.2018-07-14')
+    args_parser.add_argument('--save_path', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/company_task/zhipu_api_task/novel_split_data_ppl')
+    args_parser.add_argument('--path_kenlm_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/clean_weixin/zh.arpa.bin')
+    args_parser.add_argument('--path_sentencepiece_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/clean_weixin/zh.sp.model')
+    args_parser.add_argument('--perplexity_max_cutoff', type=int,default=3000)
+    args_parser.add_argument('--pool_num', type=int,default = 10)
+
+    # parse
+    args = args_parser.parse_args()
+
+    return args
 
 if __name__ == '__main__':
     # 1.args
