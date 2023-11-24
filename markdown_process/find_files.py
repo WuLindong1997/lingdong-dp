@@ -40,7 +40,14 @@ def main(name_file: str, data_dir: str, output_file: str, cache_dir: str):
             json.dump(all_files, writer, indent=4, ensure_ascii=False)
             
     # find files with specified name
-    found_files = {name: str(all_files[name]) for name in names if name in all_files}
+    # 模糊查询
+    found_files = {}
+    for name in names:
+        for file_name in all_files:
+            if name in file_name:
+                found_files[file_name]=(str(all_files[file_name]))
+    #精确查询
+    # found_files = {name: str(all_files[name]) for name in names if name in all_files}
     
     print(f"#names: {len(names)}")
     print(f"#files: {len(all_files)}")
@@ -53,9 +60,9 @@ def main(name_file: str, data_dir: str, output_file: str, cache_dir: str):
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--name_file", required=True)
-    parser.add_argument("--data_dir", required=True)
-    parser.add_argument("--output_file", required=True)
+    parser.add_argument("--name_file", default= '/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/markdown_process/names1.txt')
+    parser.add_argument("--data_dir", default='/pretrain-data-bucket1/tos/books_txt')
+    parser.add_argument("--output_file", default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/markdown_process/file_name.json')
     parser.add_argument("--cache_dir", default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/cache')
     args = parser.parse_args()
     main(**vars(args))

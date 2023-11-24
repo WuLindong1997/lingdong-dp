@@ -372,6 +372,7 @@ def get_args():
     args_parser.add_argument('--dataset_path', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/company_task/zhipu_api_task/novel_split_data')
     # args_parser.add_argument('--dataset_path', type=str,default='/pretrain-data-bucket/pretrain_other/pretrain_else/weixin_page_clean_special_token_other/weixin_page.2018-07-14')
     args_parser.add_argument('--save_path', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/company_task/zhipu_api_task/novel_split_data_ppl')
+    #source https://huggingface.co/edugp/kenlm
     args_parser.add_argument('--path_kenlm_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/clean_weixin/zh.arpa.bin')
     args_parser.add_argument('--path_sentencepiece_model', type=str,default='/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/clean_weixin/zh.sp.model')
     args_parser.add_argument('--perplexity_max_cutoff', type=int,default=3000)
@@ -417,8 +418,3 @@ if __name__ == '__main__':
         print(f'saveing:{save_path}')
         with open(save_path,'w',encoding='utf-8')as file1:
             file1.write('\n'.join(filtered_results))
-
-
-            
-                
-    

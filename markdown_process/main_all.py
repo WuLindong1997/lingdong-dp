@@ -124,10 +124,10 @@ if __name__ == "__main__":
     parser.add_argument("--max_doc_length", default= 'inf')
     args = parser.parse_args()
     print(args)
-    with open('/mnt/vepfs/lingxin/Pretrain-data/wulindong/markdown_process/code/file_path.json','r',encoding="utf-8")as file:
+    with open('/mnt/vepfs/lingxin/Pretrain-data/wulindong/lingdong-dp/markdown_process/file_name.json','r',encoding="utf-8")as file:
         file_names = json.loads(file.read())
     
-    save_root = "/mnt/vepfs/lingxin/Pretrain-data/wulindong/markdown_process/data/markdown"
+    save_root = "/mnt/vepfs/lingxin/Pretrain-data/wulindong/markdown_process/data/reader_data"
     list_input = []
     list_output = []
     for file_name,file_path in file_names.items():
